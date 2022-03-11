@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>抽签</title>
+  </head>
+  <body>
+    <textarea
+      id="users"
+      cols="30"
+      rows="10"
+      placeholder="输入人员，每行一个"
+    ></textarea>
+    <div id="result"></div>
+  </body>
+  <script>
+    const arr = document.getElementById("users").innerText.split("\n");
+    let group = 2;
+    let t = arr.length / 2;
+
+    const result = [];
+    const used = {};
+    for (let i = 0; i < group; i++) {
+      const groupu = [];
+      for (let j = 0; j < t; j++) {
+        let r = getRandom(0, arr.length - 1);
+        while (used["_" + r] != null) {
+          r = getRandom(0, 10);
+        }
+        used["_" + r] = true;
+        groupu[j] = arr[r];
+      }
+      console.log("分组：", groupu.join(","));
+      result.push(groupu);
+    }
+
+    function getRandom(start, end) {
+      return Math.floor(Math.random() * (end - start) + start);
+    }
+  </script>
+</html>
